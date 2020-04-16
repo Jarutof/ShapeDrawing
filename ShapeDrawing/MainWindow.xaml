@@ -1,0 +1,49 @@
+﻿<Window x:Class="ShapeDrawing.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ShapeDrawing"
+        mc:Ignorable="d"
+        Title="Shape Drawing" Height="450" Width="795"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*"/>
+            <ColumnDefinition Width="250"/>
+        </Grid.ColumnDefinitions>
+        <materialDesign:Card Padding="5" Margin="10" Grid.RowSpan="2">
+            <ContentPresenter Content="{Binding Path=Canvas}"></ContentPresenter>
+        </materialDesign:Card>
+
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="345*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="comboBox" Grid.ColumnSpan="3" ItemsSource="{Binding Path=Shapes}" SelectedItem="{Binding Path=SelectedShape}" DisplayMemberPath="Name"></ComboBox>
+
+            <Label VerticalContentAlignment="Center" Grid.Row="1">Scale</Label>
+            <Button Content="-" Grid.Column="1" Grid.Row="1" Margin="2" Height="Auto"
+                Command="{Binding Path=DataContext.ScaleDecCmd, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding ElementName=comboBox, Path=SelectedItem}"/>
+
+            <Button Content="+" Grid.Column="2" Grid.Row="1" Margin="2" Height="Auto"
+                Command="{Binding Path=DataContext.ScaleIncCmd, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" CommandParameter="{Binding ElementName=comboBox, Path=SelectedItem}"/>
+        </Grid>
+
+
+    </Grid>
+</Window>
